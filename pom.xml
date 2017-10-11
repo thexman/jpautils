@@ -1,0 +1,304 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.a9ski.utils</groupId>
+	<artifactId>jpa</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>jpa</name>
+	<description>Utility classes for JPA</description>
+	
+	<url>https://github.com/thexman/jpautils</url>
+	<inceptionYear>2017</inceptionYear>
+	<organization>
+		<name>Kiril Arabadzhiyski</name>
+		<url>http://www.a9ski.com</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>thexman</id>
+			<name>Kiril Arabadzhiyski</name>
+			<email>thexman@dir.bg</email>
+			<url>https://github.com/thexman</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/thexman/jpautils</url>
+		<connection>scm:git:ssh://git@github.com/thexman/jpautils.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/thexman/jpautils.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+
+	<licenses>
+		<license>
+			<name>apache_v2</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<!-- slf4j used by other dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<type>jar</type>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.7.14</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- JEE dependencies -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<type>jar</type>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.a9ski.utils</groupId>
+			<artifactId>id</artifactId>
+			<version>1.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<tagNameFormat>@{project.version}</tagNameFormat>
+					<arguments>-Prelease</arguments>
+					<localCheckout>true</localCheckout>						
+					<pushChanges>false</pushChanges>
+				</configuration>					
+			</plugin>
+			<!--plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
+			</plugin-->
+			
+			
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<!--version>1.6.3</version-->
+				<!--extensions>true</extensions-->
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<!--stagingProfileId>5fda8b0d1ee9</stagingProfileId-->
+					<!--autoReleaseAfterClose>true</autoReleaseAfterClose-->						
+				</configuration>					
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<configuration>
+					<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+					<licenseName>apache_v2</licenseName>
+				</configuration>
+			</plugin>
+
+<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<projectNameTemplate>jpautils</projectNameTemplate>
+					<wtpversion>2.0</wtpversion>
+					<wtpContextName>jpautils</wtpContextName>
+					<!-- Project nature for Java EE project -->
+					<additionalProjectnatures>
+						<projectnature>org.eclipse.jem.workbench.JavaEMFprojectnature</projectnature>
+						<projectnature>org.eclipse.wst.common.modulecore.ModuleCoreprojectnature</projectnature>
+						<projectnature>org.eclipse.wst.common.project.facet.core.projectnature</projectnature>
+						<projectnature>org.eclipse.jdt.core.javaprojectnature</projectnature>
+						<projectnature>org.eclipse.wst.jsdt.core.jsprojectnature</projectnature>
+						<projectnature>org.eclipse.wst.common.project.facet.core.nature</projectnature>
+						<projectnature>org.eclipse.jdt.core.javanature</projectnature>
+						<projectnature>org.eclipse.wst.common.modulecore.ModuleCoreNature</projectnature>
+						<projectnature>org.eclipse.jem.workbench.JavaEMFNature</projectnature>
+					</additionalProjectnatures>
+					<additionalBuildcommands>
+						<buildcommand>org.eclipse.wst.jsdt.core.javascriptValidator</buildcommand>
+						<buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+						<buildcommand>org.eclipse.wst.common.project.facet.core.builder</buildcommand>
+						<buildcommand>org.eclipse.wst.validation.validationbuilder</buildcommand>
+					</additionalBuildcommands>
+					<additionalProjectFacets>
+						<java>1.7</java>
+						<jst.jaxrs>1.1</jst.jaxrs>
+						<wst.jsdt.web>1.0</wst.jsdt.web>
+						<jpt.jpa>2.1</jpt.jpa>
+					</additionalProjectFacets>
+					<additionalConfig>
+						<file>
+							<name>.settings/org.eclipse.jpt.core.prefs</name>
+							<content>
+							<![CDATA[eclipse.preferences.version=1
+org.eclipse.jpt.core.platform=eclipselink2_5
+org.eclipse.jpt.jpa.core.discoverAnnotatedClasses=true
+org.eclipse.jpt.jpa.core.metamodelSourceFolderName=src/main/java]]>
+							</content>
+						</file>
+						<file>
+							<name>.settings/org.eclipse.wst.common.project.facet.core.prefs.xml</name>
+							<content>
+							<![CDATA[<root>
+  <facet id="jst.jaxrs"/>
+  <facet id="jpt.jpa">
+    <node name="libprov">
+      <attribute name="provider-id" value="jpa-no-op-library-provider"/>
+    </node>
+  </facet>
+</root>]]>
+							</content>
+						</file>
+					</additionalConfig>
+				</configuration>
+			</plugin>
+
+
+
+		</plugins>
+	</build>
+
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>license-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>license-check</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>check-file-header</goal>
+								</goals>
+								<configuration>
+									<failOnMissingHeader>true</failOnMissingHeader>
+									<failOnNotUptodateHeader>true</failOnNotUptodateHeader>
+									<excludes>
+										<exclude>**/*.properties</exclude>
+										<exclude>**/*.js</exclude>
+										<exclude>**/*.css</exclude>
+										<exclude>**/*.html</exclude>
+										<exclude>**/*.xml</exclude>
+									</excludes>
+								</configuration>
+							</execution>
+							<execution>
+								<id>generate-license-file</id>
+								<goals>
+									<goal>update-project-license</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>net.ju-n.maven.plugins</groupId>
+						<artifactId>checksum-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-checksum</id>
+								<goals>
+									<goal>artifacts</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>
