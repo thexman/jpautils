@@ -1,7 +1,7 @@
 package com.a9ski.jpa;
 
 import java.util.List;
-import java.util.Locale;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -23,10 +23,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.a9ski.entities.AuditableEntity;
-import com.a9ski.entities.AuditableEntityFilter;
 import com.a9ski.entities.AuditableEntity_;
 import com.a9ski.entities.IdentifiableEntity;
 import com.a9ski.entities.IdentifiableEntity_;
+import com.a9ski.entities.filters.AuditableEntityFilter;
+import com.a9ski.entities.filters.IdentifiableEntityFilter;
 import com.a9ski.exceptions.ObjectAlreadyModifiedException;
 import com.a9ski.id.Identifiable;
 import com.a9ski.utils.ExtCollectionUtils;
@@ -43,6 +44,16 @@ public class JpaUtils {
 	public static final Logger LOGGER = LoggerFactory.getLogger(JpaUtils.class);
 
 	private final Supplier<EntityManager> entityManagerSupplier;
+
+	/**
+	 * Creates a new Utility class that uses entity manager supplied by <tt>entityManagerSupplier</tt>
+	 * 
+	 * @param entityManager
+	 *            the entity manager
+	 */
+	public JpaUtils(EntityManager entityManager) {
+		this(() -> entityManager);
+	}
 
 	/**
 	 * Creates a new Utility class that uses entity manager supplied by <tt>entityManagerSupplier</tt>
@@ -76,8 +87,8 @@ public class JpaUtils {
 	 * 
 	 * @return a new criteria builder helper
 	 */
-	public <E extends AuditableEntity> CriteriaBuilderHelper addAuditableEntityPredicates(final CriteriaApiObjects<E> criteriaApiObjects, final AuditableEntityFilter filter, final Locale locale) {
-		return addAuditableEntityPredicates(criteriaApiObjects.getCriteriaBuilder(), criteriaApiObjects.getPath(), filter, locale);
+	public <E extends AuditableEntity, F extends AuditableEntityFilter> CriteriaBuilderHelper addAuditableEntityPredicates(final CriteriaApiObjects<E> criteriaApiObjects, final F filter) {
+		return addAuditableEntityPredicates(criteriaApiObjects.getCriteriaBuilder(), criteriaApiObjects.getPath(), filter);
 	}
 
 	/**
@@ -94,8 +105,8 @@ public class JpaUtils {
 	 * 
 	 * @return a criteria builder helper
 	 */
-	public CriteriaBuilderHelper addAuditableEntityPredicates(final CriteriaBuilder cb, final Path<? extends AuditableEntity> path, final AuditableEntityFilter filter, final Locale locale) {
-		final CriteriaBuilderHelper cbh = new CriteriaBuilderHelper(cb, locale);
+	public CriteriaBuilderHelper addAuditableEntityPredicates(final CriteriaBuilder cb, final Path<? extends AuditableEntity> path, final AuditableEntityFilter filter) {
+		final CriteriaBuilderHelper cbh = new CriteriaBuilderHelper(cb, filter.getLocale());
 		if (filter.getDeleted() != null) {
 			cbh.equalBool(path.get(AuditableEntity_.deleted), filter.getDeleted());
 		}
@@ -346,9 +357,10 @@ public class JpaUtils {
 	 *            the entity class
 	 * @return the number of entities matching the query filter
 	 */
-	public <E extends AuditableEntity, F extends AuditableEntityFilter> long countEntities(final F filter, final Class<E> entityClass) {
-		final Function<CriteriaApiObjects<E>, QueryConfig> queryConfigFactory = o -> new QueryConfig(addAuditableEntityPredicates(o, filter, Locale.getDefault()).getPredicates(), null, null, filter.isDistinct());
-		return countEntities(queryConfigFactory, entityClass);
+	public <E extends AuditableEntity, F extends AuditableEntityFilter> long countEntities(final F filter, BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
+		return countEntities(cao -> queryConfigFactory.apply(cao, filter), entityClass);
+		// final Function<CriteriaApiObjects<E>, QueryConfig> queryConfigFactory = o -> new QueryConfig(addAuditableEntityPredicates(o, filter, Locale.getDefault()).getPredicates(), null, null, filter.isDistinct());
+		// return countEntities(queryConfigFactory, entityClass);
 	}
 
 	/**
@@ -390,6 +402,21 @@ public class JpaUtils {
 	}
 
 	/**
+	 * List entities matching given filter
+	 * 
+	 * @param filter
+	 *            the filter
+	 * @param queryConfigFactory
+	 *            the query configuration factory
+	 * @param entityClass
+	 *            the entity class
+	 * @return List entities matching given filter
+	 */
+	public <E, F extends AuditableEntityFilter> List<E> listEntities(F filter, BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, Class<E> entityClass) {
+		return listEntities(filter.getFirstResult(), filter.getMaxResults(), cao -> queryConfigFactory.apply(cao, filter), entityClass);
+	}
+
+	/**
 	 * List entity IDs matching given query configuration
 	 * 
 	 * @param firstResult
@@ -411,6 +438,21 @@ public class JpaUtils {
 		cq.select(root.get(IdentifiableEntity_.id));
 
 		return executeQuery(em, firstResult, maxResults, queryConfigFactory, cb, cq, root);
+	}
+
+	/**
+	 * List entities matching given filter
+	 * 
+	 * @param filter
+	 *            the filter
+	 * @param queryConfigFactory
+	 *            the query configuration factory
+	 * @param entityClass
+	 *            the entity class
+	 * @return List entities matching given filter
+	 */
+	public <E extends IdentifiableEntity, F extends IdentifiableEntityFilter> List<Long> listEntityIds(F filter, BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, Class<E> entityClass) {
+		return listEntityIds(filter.getFirstResult(), filter.getMaxResults(), cao -> queryConfigFactory.apply(cao, filter), entityClass);
 	}
 
 	/**

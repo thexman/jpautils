@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 
 import org.apache.commons.collections4.CollectionUtils;
 
+import com.a9ski.entities.filters.FilterStringField;
 import com.a9ski.utils.DateRange;
 import com.a9ski.utils.ExtCollectionUtils;
 import com.a9ski.utils.Range;
@@ -119,6 +120,38 @@ public class CriteriaBuilderHelper {
 	public CriteriaBuilderHelper likeText(final Expression<String> field, final String text) {
 		if (StringUtils.isNotBlank(text)) {
 			like(field, createLikePattern(text, ESCAPE_CHAR), ESCAPE_CHAR);
+		}
+		return this;
+	}
+
+	/**
+	 * Create a <b>EQUAL</b> OR <b>LIKE</b> predicate depending on the matching
+	 * 
+	 * @param field
+	 *            the entity field
+	 * @param value
+	 *            the value
+	 * @return the helper class, useful for method chaining
+	 */
+	public CriteriaBuilderHelper add(final Expression<String> field, final FilterStringField value) { // NOSONAR
+		if (value != null && value.getMatching() != null && StringUtils.isNotBlank(value.getValue())) {
+			switch (value.getMatching()) {
+				case STARTS_WITH:
+					like(field, createStartsWithPattern(value.getValue(), ESCAPE_CHAR), ESCAPE_CHAR);
+					break;
+				case ENDS_WITH:
+					like(field, createEndsWithPattern(value.getValue(), ESCAPE_CHAR), ESCAPE_CHAR);
+					break;
+				case LIKE:
+					likeText(field, value.getValue());
+					break;
+				case EXACT:
+					equal(field, value.getValue());
+					break;
+				case CUSTOM:
+					like(field, value.getValue(), ESCAPE_CHAR);
+					break;
+			}
 		}
 		return this;
 	}
@@ -602,8 +635,8 @@ public class CriteriaBuilderHelper {
 		// The issue is that this behavior does not occur in English where the single lowercase dotted 'i' becomes an uppercase dotless 'I'.
 		//
 		// With the statement String.toUppercase(), most Java programmers try to effectively neutralize case. Consider a HashMap with string
-		// keys and you have a key that you want to look up. If you want to ignore case, you’ll probably uppercase everything going into the map,
-		// its entries, and the string you’re doing the lookup with. This works fine for English, but not for Turkish, where lower dotless becomes capital dotless.
+		// keys and you have a key that you want to look up. If you want to ignore case, youï¿½ll probably uppercase everything going into the map,
+		// its entries, and the string youï¿½re doing the lookup with. This works fine for English, but not for Turkish, where lower dotless becomes capital dotless.
 		//
 		// Changing the word 'quit' to uppercase in the Turkish locale will result in 'QU[dotted capital I]T', not 'QU[dotless capital I]T' (as in English).
 		//

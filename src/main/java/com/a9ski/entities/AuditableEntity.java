@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -21,6 +23,7 @@ import com.a9ski.id.Versioned;
  *
  */
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class AuditableEntity extends IdentifiableEntity implements Auditable, Identifiable, Deletable, Versioned {
 
 	/**
@@ -169,4 +172,75 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 		this.deleted = deleted;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((created == null) ? 0 : created.hashCode());
+		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+		result = prime * result + (deleted ? 1231 : 1237);
+		result = prime * result + ((edited == null) ? 0 : edited.hashCode());
+		result = prime * result + ((editor == null) ? 0 : editor.hashCode());
+		result = prime * result + (int) (version ^ (version >>> 32));
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof AuditableEntity)) {
+			return false;
+		}
+		final AuditableEntity other = (AuditableEntity) obj;
+		if (created == null) {
+			if (other.created != null) {
+				return false;
+			}
+		} else if (!created.equals(other.created)) {
+			return false;
+		}
+		if (creator == null) {
+			if (other.creator != null) {
+				return false;
+			}
+		} else if (!creator.equals(other.creator)) {
+			return false;
+		}
+		if (deleted != other.deleted) {
+			return false;
+		}
+		if (edited == null) {
+			if (other.edited != null) {
+				return false;
+			}
+		} else if (!edited.equals(other.edited)) {
+			return false;
+		}
+		if (editor == null) {
+			if (other.editor != null) {
+				return false;
+			}
+		} else if (!editor.equals(other.editor)) {
+			return false;
+		}
+		if (version != other.version) {
+			return false;
+		}
+		return true;
+	}
 }

@@ -1,6 +1,5 @@
-package com.a9ski.entities;
+package com.a9ski.entities.filters;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import com.a9ski.utils.DateRange;
@@ -12,14 +11,12 @@ import com.a9ski.utils.Range;
  * @author Kiril Arabadzhiyski
  *
  */
-public class AuditableEntityFilter implements Serializable {
+public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = -5166295555143567362L;
-
-	private Set<Long> ids;
 
 	private Set<Long> creators;
 
@@ -32,27 +29,6 @@ public class AuditableEntityFilter implements Serializable {
 	private Range<Long> version;
 
 	private Boolean deleted;
-
-	private boolean distinct;
-
-	/**
-	 * Returns a set of entity IDs to be filtered
-	 * 
-	 * @return the entity ids to be filtered
-	 */
-	public Set<Long> getIds() {
-		return ids;
-	}
-
-	/**
-	 * Sets entity IDs to be filtered
-	 * 
-	 * @param ids
-	 *            entity IDs to be filtered
-	 */
-	public void setIds(final Set<Long> ids) {
-		this.ids = ids;
-	}
 
 	/**
 	 * Returns a set of user IDs used for filtering
@@ -168,22 +144,83 @@ public class AuditableEntityFilter implements Serializable {
 		this.deleted = deleted;
 	}
 
-	/**
-	 * Flag indicating that only distinct entities must be returned
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return flag indicating that only distinct entities must be returned
+	 * @see java.lang.Object#hashCode()
 	 */
-	public boolean isDistinct() {
-		return distinct;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((created == null) ? 0 : created.hashCode());
+		result = prime * result + ((creators == null) ? 0 : creators.hashCode());
+		result = prime * result + ((deleted == null) ? 0 : deleted.hashCode());
+		result = prime * result + ((edited == null) ? 0 : edited.hashCode());
+		result = prime * result + ((editors == null) ? 0 : editors.hashCode());
+		result = prime * result + ((version == null) ? 0 : version.hashCode());
+		return result;
 	}
 
-	/**
-	 * Sets flag indicating that only distinct entities must be returned
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param distinct
-	 *            flag indicating that only distinct entities must be returned
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	public void setDistinct(boolean distinct) {
-		this.distinct = distinct;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof AuditableEntityFilter)) {
+			return false;
+		}
+		AuditableEntityFilter other = (AuditableEntityFilter) obj;
+		if (created == null) {
+			if (other.created != null) {
+				return false;
+			}
+		} else if (!created.equals(other.created)) {
+			return false;
+		}
+		if (creators == null) {
+			if (other.creators != null) {
+				return false;
+			}
+		} else if (!creators.equals(other.creators)) {
+			return false;
+		}
+		if (deleted == null) {
+			if (other.deleted != null) {
+				return false;
+			}
+		} else if (!deleted.equals(other.deleted)) {
+			return false;
+		}
+		if (edited == null) {
+			if (other.edited != null) {
+				return false;
+			}
+		} else if (!edited.equals(other.edited)) {
+			return false;
+		}
+		if (editors == null) {
+			if (other.editors != null) {
+				return false;
+			}
+		} else if (!editors.equals(other.editors)) {
+			return false;
+		}
+		if (version == null) {
+			if (other.version != null) {
+				return false;
+			}
+		} else if (!version.equals(other.version)) {
+			return false;
+		}
+		return true;
 	}
 }

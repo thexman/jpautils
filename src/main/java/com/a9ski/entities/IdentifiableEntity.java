@@ -28,7 +28,7 @@ public abstract class IdentifiableEntity implements Identifiable {
 	private static final long serialVersionUID = 2152770674364422919L;
 
 	@Id
-	@SequenceGenerator(name = "sequenceId", sequenceName = "SEQUENCE_ID", allocationSize = 1)
+	@SequenceGenerator(name = "sequenceId", sequenceName = "sequence_id", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceId")
 	@Column(name = "id")
 	private long id;
@@ -51,6 +51,42 @@ public abstract class IdentifiableEntity implements Identifiable {
 	@Override
 	public void setId(final long id) {
 		this.id = id;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof IdentifiableEntity)) {
+			return false;
+		}
+		final IdentifiableEntity other = (IdentifiableEntity) obj;
+		if (id != other.id) {
+			return false;
+		}
+		return true;
 	}
 
 }
