@@ -12,9 +12,9 @@ import javax.persistence.SequenceGenerator;
 import com.a9ski.id.Identifiable;
 
 /**
- * 
+ *
  * Abstract class for all entities with numeric Id
- * 
+ *
  * @author Kiril Arabadzhiyski
  *
  */
@@ -35,7 +35,7 @@ public abstract class IdentifiableEntity implements Identifiable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Identifiable#getId()
 	 */
 	@Override
@@ -45,7 +45,7 @@ public abstract class IdentifiableEntity implements Identifiable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Identifiable#setId(long)
 	 */
 	@Override
@@ -55,7 +55,7 @@ public abstract class IdentifiableEntity implements Identifiable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -68,11 +68,11 @@ public abstract class IdentifiableEntity implements Identifiable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}

@@ -20,7 +20,7 @@ public class FilterStringField {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -34,11 +34,11 @@ public class FilterStringField {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -48,7 +48,7 @@ public class FilterStringField {
 		if (!(obj instanceof FilterStringField)) {
 			return false;
 		}
-		FilterStringField other = (FilterStringField) obj;
+		final FilterStringField other = (FilterStringField) obj;
 		if (matching != other.matching) {
 			return false;
 		}

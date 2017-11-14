@@ -7,7 +7,7 @@ import com.a9ski.utils.Range;
 
 /**
  * Filter for querying auditable entities. All derived entities must have filter which is subclass of this one.
- * 
+ *
  * @author Kiril Arabadzhiyski
  *
  */
@@ -32,7 +32,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Returns a set of user IDs used for filtering
-	 * 
+	 *
 	 * @return a set of user IDs used for filtering
 	 */
 	public Set<Long> getCreators() {
@@ -41,7 +41,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Sets of user IDs used for filtering
-	 * 
+	 *
 	 * @param creators
 	 *            user IDs used for filtering
 	 */
@@ -51,7 +51,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Returns a set of user IDs used for filtering
-	 * 
+	 *
 	 * @return a set of user IDs used for filtering
 	 */
 	public Set<Long> getEditors() {
@@ -60,7 +60,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Sets of user IDs used for filtering
-	 * 
+	 *
 	 * @param editors
 	 *            user IDs used for filtering
 	 */
@@ -70,7 +70,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Date range filter for entity creation date
-	 * 
+	 *
 	 * @return date range filter for entity creation date
 	 */
 	public DateRange getCreated() {
@@ -79,7 +79,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Sets date range filter for entity creation date
-	 * 
+	 *
 	 * @param created
 	 *            date range filter for entity creation date
 	 */
@@ -89,7 +89,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Date range filter for entity last modification date
-	 * 
+	 *
 	 * @return date range filter for entity last modification date
 	 */
 	public DateRange getEdited() {
@@ -98,7 +98,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Sets date range filter for entity last modification date
-	 * 
+	 *
 	 * @param edited
 	 *            date range filter for entity last modification date
 	 */
@@ -108,7 +108,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Numeric range filter for entity version
-	 * 
+	 *
 	 * @return Numeric range filter for entity version
 	 */
 	public Range<Long> getVersion() {
@@ -117,7 +117,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Sets numeric range filter for entity version
-	 * 
+	 *
 	 * @param version
 	 *            numeric range filter for entity version
 	 */
@@ -127,7 +127,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Soft delete filter
-	 * 
+	 *
 	 * @return soft delete filter
 	 */
 	public Boolean getDeleted() {
@@ -136,7 +136,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
 	 * Sets soft delete filter
-	 * 
+	 *
 	 * @param deleted
 	 *            soft delete filter
 	 */
@@ -146,7 +146,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -164,11 +164,11 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -178,7 +178,7 @@ public class AuditableEntityFilter extends IdentifiableEntityFilter {
 		if (!(obj instanceof AuditableEntityFilter)) {
 			return false;
 		}
-		AuditableEntityFilter other = (AuditableEntityFilter) obj;
+		final AuditableEntityFilter other = (AuditableEntityFilter) obj;
 		if (created == null) {
 			if (other.created != null) {
 				return false;

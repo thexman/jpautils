@@ -6,7 +6,7 @@ import javax.persistence.criteria.Path;
 
 /**
  * Holder class that contains all Criteria API objects needed for creating query predicates.
- * 
+ *
  * @author Kiril Arabadzhiyski
  *
  * @param <E>
@@ -19,7 +19,7 @@ public class CriteriaApiObjects<E> {
 
 	/**
 	 * Creates a new holder object
-	 * 
+	 *
 	 * @param criteriaBuilder
 	 *            the criteria builder
 	 * @param criteriaQuery
@@ -27,7 +27,7 @@ public class CriteriaApiObjects<E> {
 	 * @param path
 	 *            the JPA entity path
 	 */
-	public CriteriaApiObjects(CriteriaBuilder criteriaBuilder, CriteriaQuery<?> criteriaQuery, Path<E> path) {
+	public CriteriaApiObjects(final CriteriaBuilder criteriaBuilder, final CriteriaQuery<?> criteriaQuery, final Path<E> path) {
 		super();
 		this.criteriaBuilder = criteriaBuilder;
 		this.criteriaQuery = criteriaQuery;
@@ -36,7 +36,7 @@ public class CriteriaApiObjects<E> {
 
 	/**
 	 * Returns the criteria builder
-	 * 
+	 *
 	 * @return the criteria builder
 	 */
 	public CriteriaBuilder getCriteriaBuilder() {
@@ -45,7 +45,7 @@ public class CriteriaApiObjects<E> {
 
 	/**
 	 * Returns the criteria query
-	 * 
+	 *
 	 * @return the criteria query
 	 */
 	public CriteriaQuery<?> getCriteriaQuery() {
@@ -54,7 +54,7 @@ public class CriteriaApiObjects<E> {
 
 	/**
 	 * Returns JPA entity path
-	 * 
+	 *
 	 * @return JPA entity path
 	 */
 	public Path<E> getPath() {

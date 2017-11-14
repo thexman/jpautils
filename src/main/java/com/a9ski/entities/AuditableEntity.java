@@ -16,9 +16,9 @@ import com.a9ski.id.Identifiable;
 import com.a9ski.id.Versioned;
 
 /**
- * 
+ *
  * Abstract class for all entities, contains creation date, ID of the user who created the object, date of last edit, ID of the user performing last modification, soft deletion flag. The entity uses optimistic locking.
- * 
+ *
  * @author Kiril Arabadzhiyski
  *
  */
@@ -54,7 +54,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Auditable#getCreated()
 	 */
 	@Override
@@ -64,7 +64,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Auditable#setCreated(java.util.Date)
 	 */
 	@Override
@@ -74,7 +74,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Auditable#getEdited()
 	 */
 	@Override
@@ -84,7 +84,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Auditable#setEdited(java.util.Date)
 	 */
 	@Override
@@ -94,7 +94,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Auditable#getCreator()
 	 */
 	@Override
@@ -104,7 +104,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Auditable#setCreator(java.lang.Long)
 	 */
 	@Override
@@ -114,7 +114,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Auditable#getEditor()
 	 */
 	@Override
@@ -124,7 +124,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Auditable#setEditor(java.lang.Long)
 	 */
 	@Override
@@ -134,7 +134,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Versioned#getVersion()
 	 */
 	@Override
@@ -144,7 +144,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Versioned#setVersion(long)
 	 */
 	@Override
@@ -154,7 +154,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Deletable#isDeleted()
 	 */
 	@Override
@@ -164,7 +164,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.a9ski.id.Deletable#setDeleted(boolean)
 	 */
 	@Override
@@ -174,7 +174,7 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -192,11 +192,11 @@ public abstract class AuditableEntity extends IdentifiableEntity implements Audi
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}

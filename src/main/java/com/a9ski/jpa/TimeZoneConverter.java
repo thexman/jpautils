@@ -9,12 +9,12 @@ import javax.persistence.Converter;
 public class TimeZoneConverter implements AttributeConverter<TimeZone, String> {
 
 	@Override
-	public String convertToDatabaseColumn(TimeZone tz) {
+	public String convertToDatabaseColumn(final TimeZone tz) {
 		return tz != null ? tz.getID() : null;
 	}
 
 	@Override
-	public TimeZone convertToEntityAttribute(String dbData) {
+	public TimeZone convertToEntityAttribute(final String dbData) {
 		return dbData != null ? TimeZone.getTimeZone(dbData) : null;
 	}
 

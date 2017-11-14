@@ -10,12 +10,12 @@ import com.a9ski.utils.TimeZoneList.NamedTimeZone;
 public class NamedTimeZoneConverter implements AttributeConverter<NamedTimeZone, String> {
 
 	@Override
-	public String convertToDatabaseColumn(NamedTimeZone ntz) {
+	public String convertToDatabaseColumn(final NamedTimeZone ntz) {
 		return ntz != null ? ntz.getTimeZone().getID() : null;
 	}
 
 	@Override
-	public NamedTimeZone convertToEntityAttribute(String dbData) {
+	public NamedTimeZone convertToEntityAttribute(final String dbData) {
 		return dbData != null ? TimeZoneList.getInstance().getNamedTimeZone(dbData) : null;
 	}
 

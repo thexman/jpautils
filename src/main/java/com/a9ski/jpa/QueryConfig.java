@@ -12,7 +12,7 @@ import com.a9ski.utils.ExtCollectionUtils;
 
 /**
  * Class representing query configuration.
- * 
+ *
  * @author Kiril Arabadzhiyski
  *
  */
@@ -28,7 +28,7 @@ public class QueryConfig {
 
 	/**
 	 * Creates a new query configuration object
-	 * 
+	 *
 	 * @param predicates
 	 *            the predicates used in the query
 	 * @param parameters
@@ -48,7 +48,7 @@ public class QueryConfig {
 
 	/**
 	 * Returns the parameter mapping used in the query
-	 * 
+	 *
 	 * @return the parameter mapping used in the query
 	 */
 	public List<Pair<Parameter<Object>, Object>> getParameters() {
@@ -57,7 +57,7 @@ public class QueryConfig {
 
 	/**
 	 * Returns the sort order used in the query
-	 * 
+	 *
 	 * @return the sort order used in the query
 	 */
 	public List<Order> getSortOrders() {
@@ -66,7 +66,7 @@ public class QueryConfig {
 
 	/**
 	 * Returns true if the only distinct object must be returned by the query.
-	 * 
+	 *
 	 * @return true if the only distinct object must be returned by the query.
 	 */
 	public boolean isDistinct() {
@@ -75,7 +75,7 @@ public class QueryConfig {
 
 	/**
 	 * Gets a list of the predicates used in the query
-	 * 
+	 *
 	 * @return list of the predicates used in the query
 	 */
 	public List<Predicate> getPredicates() {
@@ -84,7 +84,7 @@ public class QueryConfig {
 
 	/**
 	 * Gets an array of the predicates used in the query
-	 * 
+	 *
 	 * @return an array of the predicates used in the query
 	 */
 	public Predicate[] getPredicatesArray() {

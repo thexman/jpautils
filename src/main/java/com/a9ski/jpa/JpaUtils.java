@@ -35,7 +35,7 @@ import com.a9ski.utils.NullUtils;
 
 /**
  * Utilities for dealing with JPA entities and queries
- * 
+ *
  * @author Kiril Arabadzhiyski
  *
  */
@@ -47,17 +47,17 @@ public class JpaUtils {
 
 	/**
 	 * Creates a new Utility class that uses entity manager supplied by <tt>entityManagerSupplier</tt>
-	 * 
+	 *
 	 * @param entityManager
 	 *            the entity manager
 	 */
-	public JpaUtils(EntityManager entityManager) {
+	public JpaUtils(final EntityManager entityManager) {
 		this(() -> entityManager);
 	}
 
 	/**
 	 * Creates a new Utility class that uses entity manager supplied by <tt>entityManagerSupplier</tt>
-	 * 
+	 *
 	 * @param entityManagerSupplier
 	 *            the entity manager supplier
 	 */
@@ -84,7 +84,7 @@ public class JpaUtils {
 	 *            auditable entity filter
 	 * @param locale
 	 *            the locale used for string comparison
-	 * 
+	 *
 	 * @return a new criteria builder helper
 	 */
 	public <E extends AuditableEntity, F extends AuditableEntityFilter> CriteriaBuilderHelper addAuditableEntityPredicates(final CriteriaApiObjects<E> criteriaApiObjects, final F filter) {
@@ -93,7 +93,7 @@ public class JpaUtils {
 
 	/**
 	 * Adds standard predicates for {@link
-	 * 
+	 *
 	 * @param cb
 	 *            the criteria builder object
 	 * @param path
@@ -102,7 +102,7 @@ public class JpaUtils {
 	 *            auditable entity filter AuditableEntity> based on provided <tt>filter</tt>
 	 * @param locale
 	 *            the locale used for string comparison
-	 * 
+	 *
 	 * @return a criteria builder helper
 	 */
 	public CriteriaBuilderHelper addAuditableEntityPredicates(final CriteriaBuilder cb, final Path<? extends AuditableEntity> path, final AuditableEntityFilter filter) {
@@ -111,7 +111,7 @@ public class JpaUtils {
 			cbh.equalBool(path.get(AuditableEntity_.deleted), filter.getDeleted());
 		}
 
-		cbh.in(path.get(AuditableEntity_.id), filter.getIds());
+		cbh.in(path.get(IdentifiableEntity_.id), filter.getIds());
 
 		cbh.in(path.get(AuditableEntity_.creator), filter.getCreators());
 
@@ -128,7 +128,7 @@ public class JpaUtils {
 
 	/**
 	 * Creates a new entity of given class
-	 * 
+	 *
 	 * @param entityClass
 	 *            the entity class
 	 * @return a new entity of given class
@@ -143,7 +143,7 @@ public class JpaUtils {
 
 	/**
 	 * Finds existing entity by query or creates a new one
-	 * 
+	 *
 	 * @param q
 	 *            the query used for searching an entity. The first result is returned. If the query is null, a new entity will be returned
 	 * @param entityClass
@@ -170,7 +170,7 @@ public class JpaUtils {
 
 	/**
 	 * Finds existing entity by given <tt>id</tt> or creates a new one
-	 * 
+	 *
 	 * @param entityClass
 	 *            the entity class
 	 * @param id
@@ -203,20 +203,20 @@ public class JpaUtils {
 	 * Saves an entity into database and flushes the entity manager (synchronizing the persistence context to the underlying database).
 	 * <p>
 	 * Usually flushing means that the object ID is set, but the transaction is still not committed
-	 * 
+	 *
 	 * @param entity
 	 *            the entity to be saved
 	 * @return the saved entity
 	 * @throws ObjectAlreadyModifiedException
 	 *             throw if the object is already modified by different transaction
 	 */
-	public <E extends Identifiable> E save(E entity) throws ObjectAlreadyModifiedException {
+	public <E extends Identifiable> E save(final E entity) throws ObjectAlreadyModifiedException {
 		return save(entity, true);
 	}
 
 	/**
 	 * Saves an entity into database
-	 * 
+	 *
 	 * @param entity
 	 *            the entity to be saved
 	 * @param flush
@@ -225,7 +225,7 @@ public class JpaUtils {
 	 * @throws ObjectAlreadyModifiedException
 	 *             throw if the object is already modified by different transaction
 	 */
-	public <E extends Identifiable> E save(E entity, boolean flush) throws ObjectAlreadyModifiedException {
+	public <E extends Identifiable> E save(E entity, final boolean flush) throws ObjectAlreadyModifiedException {
 		final EntityManager em = em();
 		if (entity != null) {
 			final long id = entity.getId();
@@ -250,7 +250,7 @@ public class JpaUtils {
 	 * Checks if the entity is not null and returns it. If the entity is null checked ObjectNotFound exception is thrown
 	 * <p>
 	 * Normally this method should be used in conjunction with other methods like {@link #loadEntity(long, Class, boolean)}
-	 * 
+	 *
 	 * <pre>
 	 * <code>
 	 * try {
@@ -260,14 +260,14 @@ public class JpaUtils {
 	 * }
 	 * </code>
 	 * </pre>
-	 * 
+	 *
 	 * @param e
 	 *            the entity
 	 * @return the entity if it is not null
 	 * @throws ObjectNotFoundException
 	 *             thrown if the entity is null
 	 */
-	public <E> E notNull(E e) throws ObjectNotFoundException {
+	public <E> E notNull(final E e) throws ObjectNotFoundException {
 		if (e == null) {
 			throw new ObjectNotFoundException("Object is null");
 		}
@@ -276,7 +276,7 @@ public class JpaUtils {
 
 	/**
 	 * Loads entity from database.
-	 * 
+	 *
 	 * @param id
 	 *            the entity id
 	 * @param entityClass
@@ -297,7 +297,7 @@ public class JpaUtils {
 
 	/**
 	 * Loads entity from database.
-	 * 
+	 *
 	 * @param q
 	 *            the query that returns the entity
 	 * @param entityClass
@@ -318,7 +318,7 @@ public class JpaUtils {
 
 	/**
 	 * Counts entities that matches given query configuration
-	 * 
+	 *
 	 * @param queryConfigFactory
 	 *            the query configuration factory
 	 * @param entityClass
@@ -350,14 +350,14 @@ public class JpaUtils {
 
 	/**
 	 * Counts entities that matches given filter
-	 * 
+	 *
 	 * @param filter
 	 *            the query filter
 	 * @param entityClass
 	 *            the entity class
 	 * @return the number of entities matching the query filter
 	 */
-	public <E extends AuditableEntity, F extends AuditableEntityFilter> long countEntities(final F filter, BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
+	public <E extends AuditableEntity, F extends AuditableEntityFilter> long countEntities(final F filter, final BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
 		return countEntities(cao -> queryConfigFactory.apply(cao, filter), entityClass);
 		// final Function<CriteriaApiObjects<E>, QueryConfig> queryConfigFactory = o -> new QueryConfig(addAuditableEntityPredicates(o, filter, Locale.getDefault()).getPredicates(), null, null, filter.isDistinct());
 		// return countEntities(queryConfigFactory, entityClass);
@@ -365,7 +365,7 @@ public class JpaUtils {
 
 	/**
 	 * Applies parameters to typed query
-	 * 
+	 *
 	 * @param q
 	 *            the typed query
 	 * @param qc
@@ -379,7 +379,7 @@ public class JpaUtils {
 
 	/**
 	 * List entities matching given query configuration
-	 * 
+	 *
 	 * @param firstResult
 	 *            the position of the first result to retrieve.
 	 * @param maxResults
@@ -403,7 +403,7 @@ public class JpaUtils {
 
 	/**
 	 * List entities matching given filter
-	 * 
+	 *
 	 * @param filter
 	 *            the filter
 	 * @param queryConfigFactory
@@ -412,13 +412,13 @@ public class JpaUtils {
 	 *            the entity class
 	 * @return List entities matching given filter
 	 */
-	public <E, F extends AuditableEntityFilter> List<E> listEntities(F filter, BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, Class<E> entityClass) {
+	public <E, F extends AuditableEntityFilter> List<E> listEntities(final F filter, final BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
 		return listEntities(filter.getFirstResult(), filter.getMaxResults(), cao -> queryConfigFactory.apply(cao, filter), entityClass);
 	}
 
 	/**
 	 * List entity IDs matching given query configuration
-	 * 
+	 *
 	 * @param firstResult
 	 *            the position of the first result to retrieve.
 	 * @param maxResults
@@ -442,7 +442,7 @@ public class JpaUtils {
 
 	/**
 	 * List entities matching given filter
-	 * 
+	 *
 	 * @param filter
 	 *            the filter
 	 * @param queryConfigFactory
@@ -451,13 +451,13 @@ public class JpaUtils {
 	 *            the entity class
 	 * @return List entities matching given filter
 	 */
-	public <E extends IdentifiableEntity, F extends IdentifiableEntityFilter> List<Long> listEntityIds(F filter, BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, Class<E> entityClass) {
+	public <E extends IdentifiableEntity, F extends IdentifiableEntityFilter> List<Long> listEntityIds(final F filter, final BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
 		return listEntityIds(filter.getFirstResult(), filter.getMaxResults(), cao -> queryConfigFactory.apply(cao, filter), entityClass);
 	}
 
 	/**
 	 * Executes a query and returns a list of entities
-	 * 
+	 *
 	 * @param em
 	 *            the entity manager
 	 * @param firstResult
@@ -501,7 +501,7 @@ public class JpaUtils {
 
 	/**
 	 * Constructs a query configuraion object using provided factory
-	 * 
+	 *
 	 * @param queryConfigFactory
 	 *            the factory
 	 * @param cb
@@ -515,7 +515,7 @@ public class JpaUtils {
 	protected <E> QueryConfig createQueryConfig(final Function<CriteriaApiObjects<E>, QueryConfig> queryConfigFactory, final CriteriaBuilder cb, final CriteriaQuery<?> cq, final Root<E> root) {
 		QueryConfig c = null;
 		if (queryConfigFactory != null) {
-			final CriteriaApiObjects<E> param = new CriteriaApiObjects<E>(cb, cq, root);
+			final CriteriaApiObjects<E> param = new CriteriaApiObjects<>(cb, cq, root);
 			c = queryConfigFactory.apply(param);
 		}
 		if (c == null) {
@@ -526,7 +526,7 @@ public class JpaUtils {
 
 	/**
 	 * Logs query SQL to logger using debug level
-	 * 
+	 *
 	 * @param logger
 	 *            the logger
 	 * @param dialect
@@ -552,7 +552,7 @@ public class JpaUtils {
 
 	/**
 	 * Gets the query SQL
-	 * 
+	 *
 	 * @param dialect
 	 *            the database dialect
 	 * @param q
@@ -567,7 +567,7 @@ public class JpaUtils {
 
 	/**
 	 * Returns next ID from the sequence
-	 * 
+	 *
 	 * @param dialect
 	 *            the database dialect
 	 * @param sequenceName
@@ -585,7 +585,7 @@ public class JpaUtils {
 
 	/**
 	 * Returns the ID of the transaction bound to the current thread at the time this method is called
-	 * 
+	 *
 	 * @return the ID of the transaction bound to the current thread at the time this method is called
 	 */
 	public static String getTransactionId() {
@@ -648,7 +648,7 @@ public class JpaUtils {
 
 	/**
 	 * Clears the JPA cache for specified object
-	 * 
+	 *
 	 * @param em
 	 *            the entity manager
 	 * @param entityClass

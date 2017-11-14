@@ -33,12 +33,12 @@ public class CriteriaBuilderHelper {
 	private final CriteriaBuilder cb;
 	private final Locale locale;
 	private final List<Predicate> predicates;
-	private final List<CriteriaBuilderHelper> ors = new ArrayList<CriteriaBuilderHelper>();
+	private final List<CriteriaBuilderHelper> ors = new ArrayList<>();
 	private final int maxNumberOfInElements;
 
 	/**
 	 * Creates a new helper object
-	 * 
+	 *
 	 * @param cb
 	 *            the criteria builder
 	 * @param locale
@@ -50,7 +50,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Creates a new helper object
-	 * 
+	 *
 	 * @param cb
 	 *            the criteria builder
 	 * @param locale
@@ -64,7 +64,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Creates a new helper object
-	 * 
+	 *
 	 * @param cb
 	 *            the criteria builder
 	 * @param locale
@@ -83,7 +83,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Returns the maximum number of elements in IN predicate. If adding IN predicate with more than <tt>maxNumberOfInElements</tt> the IN clause is split into several IN clauses joined with AND predicate
-	 * 
+	 *
 	 * @return the maximum number of elements in IN predicate.
 	 */
 	public int getMaxNumberOfInElements() {
@@ -92,7 +92,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Creates a <b>LIKE</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param patternValue
@@ -101,8 +101,8 @@ public class CriteriaBuilderHelper {
 	 *            escape character
 	 * @return the helper class, useful for method chaining
 	 */
-	public CriteriaBuilderHelper like(final Expression<String> field, final String patternValue, char escapeCharacter) {
-		if (StringUtils.isNotBlank(patternValue)) {
+	public CriteriaBuilderHelper like(final Expression<String> field, final String patternValue, final char escapeCharacter) {
+		if (org.apache.commons.lang3.StringUtils.isNotBlank(patternValue)) {
 			predicates.add(cb.like(cb.lower(field), toIgnoreCaseString(patternValue), escapeCharacter));
 		}
 		return this;
@@ -110,7 +110,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Creates a <b>LIKE</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param text
@@ -118,7 +118,7 @@ public class CriteriaBuilderHelper {
 	 * @return the helper class, useful for method chaining
 	 */
 	public CriteriaBuilderHelper likeText(final Expression<String> field, final String text) {
-		if (StringUtils.isNotBlank(text)) {
+		if (org.apache.commons.lang3.StringUtils.isNotBlank(text)) {
 			like(field, createLikePattern(text, ESCAPE_CHAR), ESCAPE_CHAR);
 		}
 		return this;
@@ -126,7 +126,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>EQUAL</b> OR <b>LIKE</b> predicate depending on the matching
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -134,7 +134,7 @@ public class CriteriaBuilderHelper {
 	 * @return the helper class, useful for method chaining
 	 */
 	public CriteriaBuilderHelper add(final Expression<String> field, final FilterStringField value) { // NOSONAR
-		if (value != null && value.getMatching() != null && StringUtils.isNotBlank(value.getValue())) {
+		if (value != null && value.getMatching() != null && org.apache.commons.lang3.StringUtils.isNotBlank(value.getValue())) {
 			switch (value.getMatching()) {
 				case STARTS_WITH:
 					like(field, createStartsWithPattern(value.getValue(), ESCAPE_CHAR), ESCAPE_CHAR);
@@ -158,7 +158,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>EQUAL</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -174,7 +174,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>NOT EQUAL</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -190,7 +190,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>EQUAL</b> predicate for two entity fields
-	 * 
+	 *
 	 * @param field1
 	 *            an entity field
 	 * @param field2
@@ -204,7 +204,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>NOT EQUAL</b> predicate for two entity fields
-	 * 
+	 *
 	 * @param field1
 	 *            an entity field
 	 * @param field2
@@ -220,7 +220,7 @@ public class CriteriaBuilderHelper {
 	 * Create a <b>IN</b> predicate.
 	 * <p>
 	 * If the number of values is bigger than {@link #getMaxNumberOfInElements()} then the IN clause is split into several IN clauses joined with AND predicate
-	 * 
+	 *
 	 * @param field
 	 *            an entity field
 	 * @param values
@@ -236,7 +236,7 @@ public class CriteriaBuilderHelper {
 	 * Create a <b>IN</b> predicate
 	 * <p>
 	 * If the number of values is bigger than {@link #getMaxNumberOfInElements()} then the IN clause is split into several IN clauses joined with AND predicate
-	 * 
+	 *
 	 * @param field
 	 *            an entity field
 	 * @param values
@@ -263,7 +263,7 @@ public class CriteriaBuilderHelper {
 	 * Create a <b>NOT IN</b> predicate. IF the number of values is bigger than
 	 * <p>
 	 * If the number of values is bigger than {@link #getMaxNumberOfInElements()} then the NOT IN clause is split into several NOT IN clauses joined with AND predicate
-	 * 
+	 *
 	 * @param field
 	 *            an entity field
 	 * @param values
@@ -279,7 +279,7 @@ public class CriteriaBuilderHelper {
 	 * Create a <b>NOT IN</b> predicate
 	 * <p>
 	 * If the number of values is bigger than {@link #getMaxNumberOfInElements()} then the NOT IN clause is split into several NOT IN clauses joined with AND predicate
-	 * 
+	 *
 	 * @param field
 	 *            an entity field
 	 * @param values
@@ -304,7 +304,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>IS NOT NULL</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @return the helper class, useful for method chaining
@@ -316,7 +316,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>IS NULL</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @return the helper class, useful for method chaining
@@ -328,7 +328,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>EQUAL</b> predicate for boolean. Threats database NULL values as FALSE
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -348,7 +348,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>NOT EQUAL</b> predicate for boolean. Threats database NULL values as FALSE
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -368,7 +368,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>GREATER THAN OR EQUAL</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -384,7 +384,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>LESS THAN OR EQUAL</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -400,7 +400,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>GREATER THAN</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -416,7 +416,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>LESS THAN</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -432,7 +432,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>GREATER THAN OR EQUAL</b> predicate for date
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -448,7 +448,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>LESS THAN OR EQUAL</b> predicate for date
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -464,7 +464,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>GREATER THAN</b> predicate for date
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -480,7 +480,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>LESS THAN</b> predicate for date
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param value
@@ -496,7 +496,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>BETWEEN</b> predicate for date range
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param range
@@ -512,7 +512,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>BETWEEN</b> predicate for range
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param range
@@ -528,7 +528,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>BETWEEN</b> predicate
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param start
@@ -553,7 +553,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Create a <b>BETWEEN</b> predicate for dates
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @param from
@@ -570,7 +570,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Joins provided predicates in <b>OR</b> clause.
-	 * 
+	 *
 	 * @param field
 	 *            the entity field
 	 * @return
@@ -586,7 +586,7 @@ public class CriteriaBuilderHelper {
 	 * Creates a new predicate helper whose predicates are joined by <b>OR</b> clause
 	 * <p>
 	 * Example:
-	 * 
+	 *
 	 * <pre>
 	* {@code
 	* final Path&lt;AuditableEntity&gt; path = ...;
@@ -597,18 +597,18 @@ public class CriteriaBuilderHelper {
 	*         .equal(path.get(AuditableEntity_.id), 42)
 	*         .equal(path.get(AuditableEntity_.id), 24);
 	* final Predicate[] p1 = cbh.getPredicatesArray();
-	* final Predicate[] p2 = new Predicate[] { 
+	* final Predicate[] p2 = new Predicate[] {
 	*         cb.and(
-	*                cb.equal(path.get(AuditableEntity_.version), 1), 
+	*                cb.equal(path.get(AuditableEntity_.version), 1),
 	*                cb.or(
-	*                      cb.equal(path.get(AuditableEntity_.id), 42), 
+	*                      cb.equal(path.get(AuditableEntity_.id), 42),
 	*                      cb.equal(path.get(AuditableEntity_.id), 24)
 	*                      )
 	*                )};
-	* //p1 and p2 have identical predicates  
+	* //p1 and p2 have identical predicates
 	* }
 	 * </pre>
-	 * 
+	 *
 	 * @return the new predicate helper whose predicates are joined by <b>OR</b> clause
 	 */
 	public CriteriaBuilderHelper or() {
@@ -619,7 +619,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Converts string to ignore case string (lower case)
-	 * 
+	 *
 	 * @param s
 	 *            the string to be converter
 	 * @return ignore case string (lower case)
@@ -642,23 +642,23 @@ public class CriteriaBuilderHelper {
 		//
 		// Another special case is German 'sharp S' (Eszett) \u00df, which when converted to upper case is represented with double S 'SS'.
 		// "\u00df".toUpperCase(Locale.GERMANY) is "SS". That is why when comparing with ignore case it is better to compare with lower case.
-		return StringUtils.isEmpty(s) ? null : s.toLowerCase(locale);
+		return org.apache.commons.lang3.StringUtils.isEmpty(s) ? null : s.toLowerCase(locale);
 	}
 
 	private String replaceSpacesWithWildcard(final String s) {
-		return StringUtils.replaceWithSingleSpace(StringUtils.defaultString(s)).replace(' ', '%');
+		return StringUtils.replaceWithSingleSpace(org.apache.commons.lang3.StringUtils.defaultString(s)).replace(' ', '%');
 	}
 
 	private String escapeLikeTerms(final String s, final char escapeChar) {
 		// @formatter:off
-		return StringUtils.replaceWithSingleSpace(StringUtils.defaultString(s))
+		return StringUtils.replaceWithSingleSpace(org.apache.commons.lang3.StringUtils.defaultString(s))
 				.replace(escapeChar + "", escapeChar + "" + escapeChar)
 				.replace("%", escapeChar + "%")
 				.replace("_", escapeChar + "_");
 		// @formatter:on
 	}
 
-	private String prepareLikePattern(final String text, char escapeChar) {
+	private String prepareLikePattern(final String text, final char escapeChar) {
 		if (escapeChar == '%' || escapeChar == '_') {
 			throw new IllegalArgumentException("Escape character cannot be '%' or '_'");
 		}
@@ -677,7 +677,7 @@ public class CriteriaBuilderHelper {
 	 * <li>Returns the string concatenated with '%' at the beginning and the end</li>
 	 * </ol>
 	 * Example:
-	 * 
+	 *
 	 * <pre>
 	 * {@code
 	 * final CriteriaBuilderHelper cbh = ...;
@@ -686,15 +686,15 @@ public class CriteriaBuilderHelper {
 	 * // pattern1 is the same as pattern2
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 * @param text
 	 *            text to converted to pattern
 	 * @param escapeChar
 	 *            the escape character
 	 * @return like pattern
 	 */
-	public String createLikePattern(final String text, char escapeChar) {
-		return StringUtils.isBlank(text) ? "" : "%" + prepareLikePattern(text, escapeChar) + "%";
+	public String createLikePattern(final String text, final char escapeChar) {
+		return org.apache.commons.lang3.StringUtils.isBlank(text) ? "" : "%" + prepareLikePattern(text, escapeChar) + "%";
 	}
 
 	/**
@@ -709,7 +709,7 @@ public class CriteriaBuilderHelper {
 	 * <li>Returns the string concatenated with '%' at the end</li>
 	 * </ol>
 	 * Example:
-	 * 
+	 *
 	 * <pre>
 	 * {@code
 	 * final CriteriaBuilderHelper cbh = ...;
@@ -718,15 +718,15 @@ public class CriteriaBuilderHelper {
 	 * // pattern1 is the same as pattern2
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 * @param text
 	 *            text to converted to pattern
 	 * @param escapeChar
 	 *            the escape character
 	 * @return like pattern
 	 */
-	public String createStartsWithPattern(final String text, char escapeChar) {
-		return StringUtils.isBlank(text) ? "" : prepareLikePattern(text, escapeChar) + "%";
+	public String createStartsWithPattern(final String text, final char escapeChar) {
+		return org.apache.commons.lang3.StringUtils.isBlank(text) ? "" : prepareLikePattern(text, escapeChar) + "%";
 	}
 
 	/**
@@ -741,7 +741,7 @@ public class CriteriaBuilderHelper {
 	 * <li>Returns the string concatenated with '%' at the beginning</li>
 	 * </ol>
 	 * Example:
-	 * 
+	 *
 	 * <pre>
 	 * {@code
 	 * final CriteriaBuilderHelper cbh = ...;
@@ -750,20 +750,20 @@ public class CriteriaBuilderHelper {
 	 * // pattern1 is the same as pattern2
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 * @param text
 	 *            text to converted to pattern
 	 * @param escapeChar
 	 *            the escape character
 	 * @return like pattern
 	 */
-	public String createEndsWithPattern(final String text, char escapeChar) {
-		return StringUtils.isBlank(text) ? "" : "%" + prepareLikePattern(text, escapeChar);
+	public String createEndsWithPattern(final String text, final char escapeChar) {
+		return org.apache.commons.lang3.StringUtils.isBlank(text) ? "" : "%" + prepareLikePattern(text, escapeChar);
 	}
 
 	/**
 	 * Returns a list of predicates
-	 * 
+	 *
 	 * @return a list of predicates
 	 */
 	public List<Predicate> getPredicates() {
@@ -776,7 +776,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Returns an array of predicates
-	 * 
+	 *
 	 * @return an array of predicates
 	 */
 	public Predicate[] getPredicatesArray() {
@@ -785,7 +785,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Returns the locale
-	 * 
+	 *
 	 * @return the locale
 	 */
 	public Locale getLocale() {
@@ -794,7 +794,7 @@ public class CriteriaBuilderHelper {
 
 	/**
 	 * Returns the criteria builder
-	 * 
+	 *
 	 * @return the criteria builder
 	 */
 	public CriteriaBuilder getCriteriaBuilder() {

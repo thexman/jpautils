@@ -6,30 +6,30 @@ import java.util.Set;
 
 /**
  * Filter for querying identifiable entities. All derived entities must have filter which is subclass of this one.
- * 
+ *
  * @author Kiril Arabadzhiyski
  *
  */
 public class IdentifiableEntityFilter implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -2464905393270229226L;
 
 	private Set<Long> ids;
 
-	private boolean distinct;
+	private boolean distinct = true;
 
-	private int firstResult;
+	private int firstResult = 0;
 
-	private int maxResults;
+	private int maxResults = Integer.MAX_VALUE;
 
 	private Locale locale;
 
 	/**
 	 * Returns a set of entity IDs to be filtered
-	 * 
+	 *
 	 * @return the entity ids to be filtered
 	 */
 	public Set<Long> getIds() {
@@ -38,7 +38,7 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/**
 	 * Sets entity IDs to be filtered
-	 * 
+	 *
 	 * @param ids
 	 *            entity IDs to be filtered
 	 */
@@ -48,7 +48,7 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/**
 	 * Flag indicating that only distinct entities must be returned
-	 * 
+	 *
 	 * @return flag indicating that only distinct entities must be returned
 	 */
 	public boolean isDistinct() {
@@ -57,17 +57,17 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/**
 	 * Sets flag indicating that only distinct entities must be returned
-	 * 
+	 *
 	 * @param distinct
 	 *            flag indicating that only distinct entities must be returned
 	 */
-	public void setDistinct(boolean distinct) {
+	public void setDistinct(final boolean distinct) {
 		this.distinct = distinct;
 	}
 
 	/**
 	 * Gets the position of the first result to retrieve
-	 * 
+	 *
 	 * @return the position of the first result to retrieve
 	 */
 	public int getFirstResult() {
@@ -76,17 +76,17 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/**
 	 * Sets the position of the first result to retrieve
-	 * 
+	 *
 	 * @param firstResult
 	 *            the position of the first result to retrieve
 	 */
-	public void setFirstResult(int firstResult) {
+	public void setFirstResult(final int firstResult) {
 		this.firstResult = firstResult;
 	}
 
 	/**
 	 * Gets the maximum number of results to retrieve.
-	 * 
+	 *
 	 * @return the maximum number of results to retrieve.
 	 */
 	public int getMaxResults() {
@@ -95,11 +95,11 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/**
 	 * Sets the maximum number of results to retrieve.
-	 * 
+	 *
 	 * @param maxResults
 	 *            the maximum number of results to retrieve.
 	 */
-	public void setMaxResults(int maxResults) {
+	public void setMaxResults(final int maxResults) {
 		this.maxResults = maxResults;
 	}
 
@@ -107,13 +107,13 @@ public class IdentifiableEntityFilter implements Serializable {
 		return locale != null ? locale : Locale.getDefault();
 	}
 
-	public void setLocale(Locale locale) {
+	public void setLocale(final Locale locale) {
 		this.locale = locale;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -130,11 +130,11 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -144,7 +144,7 @@ public class IdentifiableEntityFilter implements Serializable {
 		if (!(obj instanceof IdentifiableEntityFilter)) {
 			return false;
 		}
-		IdentifiableEntityFilter other = (IdentifiableEntityFilter) obj;
+		final IdentifiableEntityFilter other = (IdentifiableEntityFilter) obj;
 		if (distinct != other.distinct) {
 			return false;
 		}

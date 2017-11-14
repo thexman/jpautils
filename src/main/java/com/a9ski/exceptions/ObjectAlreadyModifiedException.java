@@ -2,7 +2,7 @@ package com.a9ski.exceptions;
 
 /**
  * Exception thrown during save operation indicating object being saved is already modified by other user/transaction
- * 
+ *
  * @author Kiril Arabadzhiyski
  *
  */
