@@ -2,6 +2,13 @@ package com.a9ski.entities.filters;
 
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.a9ski.jaxb.DateRangeAdapter;
+import com.a9ski.jaxb.LongRangeAdapter;
 import com.a9ski.utils.DateRange;
 import com.a9ski.utils.Range;
 
@@ -11,23 +18,35 @@ import com.a9ski.utils.Range;
  * @author Kiril Arabadzhiyski
  *
  */
+@XmlAccessorType(XmlAccessType.NONE)
 public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**
-	 *
+	 * 
 	 */
-	private static final long serialVersionUID = -5166295555143567362L;
+	private static final long serialVersionUID = 1880470936441944702L;
 
+	@XmlJavaTypeAdapter(DateRangeAdapter.class)
+	@XmlElement
 	private Set<Long> creators;
 
+	@XmlJavaTypeAdapter(DateRangeAdapter.class)
+	@XmlElement
 	private Set<Long> editors;
 
+	@XmlJavaTypeAdapter(DateRangeAdapter.class)
+	@XmlElement
 	private DateRange created;
 
+	@XmlJavaTypeAdapter(DateRangeAdapter.class)
+	@XmlElement
 	private DateRange edited;
 
+	@XmlJavaTypeAdapter(LongRangeAdapter.class)
+	@XmlElement
 	private Range<Long> version;
 
+	@XmlElement
 	private Boolean deleted;
 
 	/**

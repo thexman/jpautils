@@ -4,32 +4,46 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.a9ski.jaxb.LocaleAdapter;
+
 /**
  * Filter for querying identifiable entities. All derived entities must have filter which is subclass of this one.
- *
+ * 
  * @author Kiril Arabadzhiyski
  *
  */
+@XmlAccessorType(XmlAccessType.NONE)
 public class IdentifiableEntityFilter implements Serializable {
 
 	/**
-	 *
+	 * 
 	 */
 	private static final long serialVersionUID = -2464905393270229226L;
 
+	@XmlElement
 	private Set<Long> ids;
 
-	private boolean distinct = true;
+	@XmlElement
+	private boolean distinct;
 
-	private int firstResult = 0;
+	@XmlElement
+	private int firstResult;
 
-	private int maxResults = Integer.MAX_VALUE;
+	@XmlElement
+	private int maxResults;
 
+	@XmlJavaTypeAdapter(LocaleAdapter.class)
+	@XmlElement
 	private Locale locale;
 
 	/**
 	 * Returns a set of entity IDs to be filtered
-	 *
+	 * 
 	 * @return the entity ids to be filtered
 	 */
 	public Set<Long> getIds() {
@@ -38,7 +52,7 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/**
 	 * Sets entity IDs to be filtered
-	 *
+	 * 
 	 * @param ids
 	 *            entity IDs to be filtered
 	 */
@@ -48,7 +62,7 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/**
 	 * Flag indicating that only distinct entities must be returned
-	 *
+	 * 
 	 * @return flag indicating that only distinct entities must be returned
 	 */
 	public boolean isDistinct() {
@@ -57,17 +71,17 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/**
 	 * Sets flag indicating that only distinct entities must be returned
-	 *
+	 * 
 	 * @param distinct
 	 *            flag indicating that only distinct entities must be returned
 	 */
-	public void setDistinct(final boolean distinct) {
+	public void setDistinct(boolean distinct) {
 		this.distinct = distinct;
 	}
 
 	/**
 	 * Gets the position of the first result to retrieve
-	 *
+	 * 
 	 * @return the position of the first result to retrieve
 	 */
 	public int getFirstResult() {
@@ -76,17 +90,17 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/**
 	 * Sets the position of the first result to retrieve
-	 *
+	 * 
 	 * @param firstResult
 	 *            the position of the first result to retrieve
 	 */
-	public void setFirstResult(final int firstResult) {
+	public void setFirstResult(int firstResult) {
 		this.firstResult = firstResult;
 	}
 
 	/**
 	 * Gets the maximum number of results to retrieve.
-	 *
+	 * 
 	 * @return the maximum number of results to retrieve.
 	 */
 	public int getMaxResults() {
@@ -95,11 +109,11 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/**
 	 * Sets the maximum number of results to retrieve.
-	 *
+	 * 
 	 * @param maxResults
 	 *            the maximum number of results to retrieve.
 	 */
-	public void setMaxResults(final int maxResults) {
+	public void setMaxResults(int maxResults) {
 		this.maxResults = maxResults;
 	}
 
@@ -107,13 +121,13 @@ public class IdentifiableEntityFilter implements Serializable {
 		return locale != null ? locale : Locale.getDefault();
 	}
 
-	public void setLocale(final Locale locale) {
+	public void setLocale(Locale locale) {
 		this.locale = locale;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -130,11 +144,11 @@ public class IdentifiableEntityFilter implements Serializable {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(final Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -144,7 +158,7 @@ public class IdentifiableEntityFilter implements Serializable {
 		if (!(obj instanceof IdentifiableEntityFilter)) {
 			return false;
 		}
-		final IdentifiableEntityFilter other = (IdentifiableEntityFilter) obj;
+		IdentifiableEntityFilter other = (IdentifiableEntityFilter) obj;
 		if (distinct != other.distinct) {
 			return false;
 		}

@@ -1,13 +1,26 @@
 package com.a9ski.entities.filters;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.a9ski.jaxb.FilterStringFieldAdapter;
+
+@XmlAccessorType(XmlAccessType.NONE)
+@XmlJavaTypeAdapter(FilterStringFieldAdapter.class)
 public class FilterStringField {
 	private final String value;
 	private final Matching matching;
 
+	@SuppressWarnings("unused")
+	private FilterStringField() {
+		this(null, null);
+	}
+
 	public FilterStringField(final String value, final Matching matching) {
 		super();
 		this.value = value;
-		this.matching = matching;
+		this.matching = matching != null ? matching : Matching.EXACT;
 	}
 
 	public String getValue() {
