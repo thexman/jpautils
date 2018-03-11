@@ -10,10 +10,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
-import com.a9ski.id.Auditable;
-import com.a9ski.id.Deletable;
-import com.a9ski.id.Identifiable;
-import com.a9ski.id.Versioned;
+import com.a9ski.id.MutableAuditable;
+import com.a9ski.id.MutableDeletable;
+import com.a9ski.id.MutableIdentifiable;
+import com.a9ski.id.MutableVersioned;
 
 /**
  *
@@ -24,7 +24,7 @@ import com.a9ski.id.Versioned;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class AuditableEntity extends IdentifiableEntity implements Auditable, Identifiable, Deletable, Versioned {
+public abstract class AuditableEntity extends IdentifiableEntity implements MutableAuditable, MutableIdentifiable, MutableDeletable, MutableVersioned {
 
 	/**
 	 *

@@ -2,8 +2,6 @@ package com.a9ski.entities.filters;
 
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -18,7 +16,6 @@ import com.a9ski.utils.Range;
  * @author Kiril Arabadzhiyski
  *
  */
-@XmlAccessorType(XmlAccessType.NONE)
 public class AuditableEntityFilter extends IdentifiableEntityFilter {
 
 	/**

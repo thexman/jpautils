@@ -7,9 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.SequenceGenerator;
 
-import com.a9ski.id.Identifiable;
+import com.a9ski.id.MutableIdentifiable;
 
 /**
  *
@@ -20,7 +19,7 @@ import com.a9ski.id.Identifiable;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class IdentifiableEntity implements Identifiable {
+public abstract class IdentifiableEntity implements MutableIdentifiable {
 
 	/**
 	 *
@@ -28,8 +27,9 @@ public abstract class IdentifiableEntity implements Identifiable {
 	private static final long serialVersionUID = 2152770674364422919L;
 
 	@Id
-	@SequenceGenerator(name = "sequenceId", sequenceName = "sequence_id", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceId")
+	// @SequenceGenerator(name = "sequenceId", sequenceName = "sequence_id", allocationSize = 1)
+	// @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 
