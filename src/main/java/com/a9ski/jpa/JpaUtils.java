@@ -27,7 +27,8 @@ import com.a9ski.entities.AuditableEntity_;
 import com.a9ski.entities.IdentifiableEntity;
 import com.a9ski.entities.IdentifiableEntity_;
 import com.a9ski.entities.filters.AuditableEntityFilter;
-import com.a9ski.entities.filters.IdentifiableEntityFilter;
+import com.a9ski.entities.filters.Filter;
+import com.a9ski.entities.filters.PageableFilter;
 import com.a9ski.exceptions.ObjectAlreadyModifiedException;
 import com.a9ski.id.Identifiable;
 import com.a9ski.utils.ExtCollectionUtils;
@@ -357,10 +358,8 @@ public class JpaUtils {
 	 *            the entity class
 	 * @return the number of entities matching the query filter
 	 */
-	public <E extends AuditableEntity, F extends AuditableEntityFilter> long countEntities(final F filter, final BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
+	public <E extends IdentifiableEntity, F extends Filter> long countEntities(final F filter, final BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
 		return countEntities(cao -> queryConfigFactory.apply(cao, filter), entityClass);
-		// final Function<CriteriaApiObjects<E>, QueryConfig> queryConfigFactory = o -> new QueryConfig(addAuditableEntityPredicates(o, filter, Locale.getDefault()).getPredicates(), null, null, filter.isDistinct());
-		// return countEntities(queryConfigFactory, entityClass);
 	}
 
 	/**
@@ -412,7 +411,7 @@ public class JpaUtils {
 	 *            the entity class
 	 * @return List entities matching given filter
 	 */
-	public <E, F extends AuditableEntityFilter> List<E> listEntities(final F filter, final BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
+	public <E, F extends PageableFilter> List<E> listEntities(final F filter, final BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
 		return listEntities(filter.getFirstResult(), filter.getMaxResults(), cao -> queryConfigFactory.apply(cao, filter), entityClass);
 	}
 
@@ -451,7 +450,7 @@ public class JpaUtils {
 	 *            the entity class
 	 * @return List entities matching given filter
 	 */
-	public <E extends IdentifiableEntity, F extends IdentifiableEntityFilter> List<Long> listEntityIds(final F filter, final BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
+	public <E extends IdentifiableEntity, F extends PageableFilter> List<Long> listEntityIds(final F filter, final BiFunction<CriteriaApiObjects<E>, F, QueryConfig> queryConfigFactory, final Class<E> entityClass) {
 		return listEntityIds(filter.getFirstResult(), filter.getMaxResults(), cao -> queryConfigFactory.apply(cao, filter), entityClass);
 	}
 
