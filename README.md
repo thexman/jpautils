@@ -36,16 +36,10 @@ More information can be obtain from [OSSRH guide](http://central.sonatype.org/pa
 
 1. `mvn clean install`
 
-2. `mvn release:prepare`
+1. Remove -SNAPSHOT from the version in pom.xml file. Commit the changes and create new tag with the version. (optionally push to github)
 
-3. checkout the newly created tag
+1. `release.sh mysecret-password-for-gpg`
 
-4. `mvn -Prelease clean javadoc:jar source:jar gpg:sign -Dgpg.passphrase=mysecret-password-for-gpg install org.sonatype.plugins:nexus-staging-maven-plugin:deploy` 
+1. Go to [https://oss.sonatype.org/#stagingRepositories](https://oss.sonatype.org/#stagingRepositories) find the staging repository from the previous step and click release
 
-**OR** just execute
-
-`release.sh mysecret-password-for-gpg`
-
-Step 2 can be done manually: a) remove -SNAPSHOT from the version in pom.xml file b) commit the changes and create new tag with the version c) add -SNAPSHOT to pom.xml file and increase the version (e.g. 1.0.0 to 1.0.1-SNAPSHOT)
-
-5. Go to [https://oss.sonatype.org/#stagingRepositories](https://oss.sonatype.org/#stagingRepositories) find the staging repository from the previous step and click release
+1. Add -SNAPSHOT to pom.xml file and increase the version (e.g. 1.0.0 to 1.0.1-SNAPSHOT). Commit and **push** the change
